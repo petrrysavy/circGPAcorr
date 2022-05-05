@@ -1,4 +1,4 @@
-library(xlsx)
+library(openxlsx)
 library(readr)
 library(stringr)
 
@@ -13,15 +13,16 @@ bootTsum <- 0
 pvalTsum <- 0
 
 for(circ in circs) {
-    res <- read.xlsx(paste(circ, "-short.xlsx", sep=""), sheetIndex=1)
+    res <- read.xlsx(paste(circ, ".xlsx", sep=""))
     pval <- as.numeric(res$pvalue)
     pvalT <- as.numeric(res$pvalueTime)
     bootT <- as.numeric(res$bootstrapTime)
-    paste("outliers")
-    print(sum(bootT > 300)) # outlier, RCI probably put the job away 
-    bootTinlier <- bootT < 300
-    bootT <- bootT[pval < 1.0 & bootTinlier]
-    pvalT <- pvalT[pval < 1.0 & bootTinlier]
+    print("outliers")
+    print(sum(bootT > 1000)) # outlier, RCI probably put the job away 
+    bootTinlier <- bootT < 1000
+    included <- (pval < 1.0 | is.na(pval)) & bootTinlier & goSize < 1000 & goSize > 10
+    bootT <- bootT[included]
+    pvalT <- pvalT[included]
     bootTsum <- bootTsum + sum(bootT)
     pvalTsum <- pvalTsum + sum(pvalT)
 
@@ -33,7 +34,7 @@ for(circ in circs) {
     count <- count + length(speedup)
     
     circ <- str_replace_all(circ, "_", "-")
-    write_lines(speedup, paste(circ, "-pvaluespeedup.dat", sep=""))
+    write_lines(speedup, paste(circ, "-pvaluespeedup2.dat", sep=""))
 }
 
 print(sum/count)
