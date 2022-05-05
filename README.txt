@@ -6,7 +6,6 @@ Petr Ryšavý, Jiří Kléma, Michaela Dostálová Merkerová
 circGPA: circRNA Functional Annotation Based on Probability-generating Functions
 
 Outputs might by downloaded from: https://ida.fel.cvut.cz/~rysavy/circgpa/
-There will be a tool available soon on: https://github.com/petrrysavy/circgpa
 
 To generate the results call in bash terminal
 > run.sh hsa_circ_1234567
