@@ -19,17 +19,22 @@ setClass("annotationResult",
         goSize="numeric"
     )
 )
+print.annotationResult <- function(x) { cat(paste("Normalized score:", x@scorenorm, "\n")); cat(paste("p-value:", x@pvalue, "\n")); }
 
 Im <- buildIm()
 
-annotateCirc <- function(circRNA, goTermList) {
+annotateCirc <- function(circRNA, goTermList, goLower = -1, goUpper = Inf) {
     muCirc <- buildMuCirc(circRNA)
     return(sapply(goTermList, function(goTerm) {
         tryCatch({
             print(paste("Probing GO term:", goTerm))
             goMu <- buildGOMu(goTerm)
             goM <- buildGOM(goTerm)
-            return(annotateVectorized(muCirc, goMu, goM, Im))
+            goSize <- sum(goMu) + sum(goM)
+            if(goSize > goUpper | goSize < goLower) { return(NULL) }
+            sol <- annotateVectorized(muCirc, goMu, goM, Im)
+            print(sol)
+            return(sol)
         }, error=function(cond) {
             print(cond)
             return(NULL)
