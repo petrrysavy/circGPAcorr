@@ -7,9 +7,8 @@ circGPA: circRNA Functional Annotation Based on Probability-generating Functions
 
 Outputs might by downloaded from: https://ida.fel.cvut.cz/~rysavy/circgpa/
 
-To generate the results call in bash terminal
-> run.sh hsa_circ_1234567
-First, the following packages need to be installed in R:
+=== Before we start ===
+First, the following packages need to be installed in R. Open R terminal and install using the following commands:
 install.packages("openxlsx")
 install.packages("xlsx")
 install.packages("readr")
@@ -28,7 +27,32 @@ install.packages("msigdbr")
 install.packages("GGally")
 install.packages("network")
 install.packages("sna")
+Next, download the source code with the associated graph. There is no need to build your own graph. A graph of interactions is included in the repository. To download the code, call in bash:
+git clone https://github.com/petrrysavy/circgpa-paper.git
 
+==== Run with the default graph ====
+The repository you just downloaded comes with the graph of interactions used in the paper's experiments. To generate the output, go to bash and call
+> ./circgpa-paper/run.sh hsa_circ_0000228
+Some of the outputs that can be generated using this command are available on https://ida.fel.cvut.cz/~rysavy/circgpa/.
+
+==== Run with a custom graph ====
+If you want to run the circGPA algorithm on your own interaction graph, you need to provide four inputs (assuming a fixed ordering on miRNAs and mRNAs):
+* Ammu - the adjacency matrix between the mRNAs and miRNAs. Row m, column mu is 1 iff mRNA m interacts with muRNA mu, 0 otherwise.
+* Amuc - a binary vector, where 1 at position mu indicates that the miRNA mu interacts with the circRNA c of interest.
+* gom - a binary vector of annotations of mRNAs - 1 if the mRNA m is annotated, 0 otherwise.
+* gomu - a binary vector of annotations of miRNAs. Similar to gom.
+To run the code on the toy network from the paper, go to R in the circgpa-paper folder and call:
+source('annotate.R')
+gomu <- c(0,1,1);
+gom <- c(1,1,1,0,0);
+Amuc <- c(1,1,1);
+Ammu <- matrix(c(0,1,1,1,1,1,0,0,1,1,0,0,1,1,0), nrow=5, ncol=3, byrow=TRUE);
+annotateVectorized(Amuc , gomu, gom, Ammu)
+
+==== Known limitations ====
+The algorithm requires a long double value with more exponent bits than common on regular desktop computers. The used long double type needs to accommodate (together with some room for operations with them) binomial coefficients up to the number of mRNAs over the size of the annotation term. See pvalue.cpp. 
+
+==== Sources of the data for the default interaction graph ====
 The included RData and CSV files contain a snapshot of interaction graph obtained
 from the following databases:
 
