@@ -1,9 +1,9 @@
 This repository contains source code and data needed to generate outputs
 needed for the following paper:
 
-# TODO the paper citation once published
 Petr Ryšavý, Jiří Kléma, Michaela Dostálová Merkerová
 circGPA: circRNA Functional Annotation Based on Probability-generating Functions
+https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-04957-8
 
 Outputs might by downloaded from: https://ida.fel.cvut.cz/~rysavy/circgpa/
 
