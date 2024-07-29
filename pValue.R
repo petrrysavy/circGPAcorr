@@ -1,6 +1,7 @@
 library(Rcpp)
 sourceCpp("pvalue.cpp")
 sourceCpp("bootstrap.cpp")
+sourceCpp("bootstrap_real.cpp")
 library(polynom)
 
 pValueFull <- function(muCirc, goMu, goM, ImmuCirc, score) {
@@ -24,6 +25,12 @@ pValueBootstrap <- function(muCirc, goMu, goM, ImmuCirc, score) {
     if(score == 0) { return(1) }
     
     return(pvalue_bootstrap(muCirc, sum(goMu), ImmuCirc, sum(goM), score, 1000000))
+}
+
+pValueBootstrapReal <- function(muCirc, goMu, goM, ImmuCirc, score) {
+    if(score == 0) { return(1) }
+    
+    return(pvalue_bootstrap_real(muCirc, sum(goMu), ImmuCirc, sum(goM), score, 1000000))
 }
 
 getCounts <- function(pathsCounts, y) {

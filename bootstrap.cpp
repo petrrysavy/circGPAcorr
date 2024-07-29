@@ -43,5 +43,5 @@ double pvalue_bootstrap(IntegerVector weightsMu, int goMuSize, IntegerVector wei
      delete[] goMu;
      delete[] goM;
     
-    return ((double) positive + 1) / trials + 1;
+    return ((double) positive + 1) / (trials + 1);
 }

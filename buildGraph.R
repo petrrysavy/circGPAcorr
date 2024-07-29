@@ -40,6 +40,7 @@ listMiRNA <- function() {
 }
 
 multiMirGeneInteract <- function() {
+    #map <- read.csv("mirna-mrna-interactions.csv")
     map <- read.csv("mirna-mrna-interactions.csv")
     map <- subset(map, select = -c(X) )
     return(map)

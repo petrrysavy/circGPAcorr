@@ -16,7 +16,7 @@ resultsToDataFrame <- function(results) {
 }
 
 runOnCirc <- function(circRNA, goLower = 10, goUpper = 1000) {
-    results <- annotateCirc(circRNA, goTermNames)
+    results <- annotateCirc(circRNA, goTermNames, goLower, goUpper)
     df <- resultsToDataFrame(results)
     df <- df[order(unlist(df[,"pvalue"])),]
     df <- cbind(df, bonferroni=p.adjust(df$pvalue, method="bonferroni"), fdr=p.adjust(df$pvalue, method="fdr"))
