@@ -33,7 +33,7 @@ git clone https://github.com/petrrysavy/circGPAcorr.git
 
 ==== Run with the default graph ====
 The repository you just downloaded comes with the graph of interactions used in the paper's experiments. To generate the output, go to bash and call
-> ./circgpa-paper/run.sh hsa_circ_0000228
+> ./circgpa-paper/run_corr.sh hsa_circ_0000228
 Some of the outputs that can be generated using this command are available at https://ida.fel.cvut.cz/~rysavy/circgpa/.
 
 ==== Run with a custom graph ====
