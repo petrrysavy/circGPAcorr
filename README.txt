@@ -2,10 +2,8 @@ This repository contains source code and data needed to generate outputs
 needed for the following paper:
 
 Petr Ryšavý, Jiří Kléma, Michaela Dostálová Merkerová
-circGPA: circRNA Functional Annotation Based on Probability-generating Functions
-https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-04957-8
-
-Outputs might by downloaded from: https://ida.fel.cvut.cz/~rysavy/circgpa/
+circGPAcorr: An Integrative Tool for Functional Annotation of Circular RNAs Using Expression Data
+To be published ...
 
 === Before we start ===
 First, the following packages need to be installed in R. Open R terminal and install using the following commands:
