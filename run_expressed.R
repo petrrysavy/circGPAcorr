@@ -9,11 +9,11 @@ args = commandArgs(trailingOnly=TRUE)
 circrna <- args[1]
 
 # Load the sample sheet
-sampleSheet <- read.xlsx("../std/sampleSheet20211214.xlsx", sheet=1, rowNames=TRUE)
+sampleSheet <- read.xlsx("data/sampleSheet20211214.xlsx", sheet=1, rowNames=TRUE)
 rownames(sampleSheet) <- sapply(rownames(sampleSheet), function(x) strsplit(x, split="_", fixed=TRUE)[[1]][1])
 
 # circRNA expression file
-circRNA <- read.table(file='../std/200904_circRNA_fromRNAseq_annot_hg19.tsv', header=TRUE)
+circRNA <- read.table(file='data/200904_circRNA_fromRNAseq_annot_hg19.tsv', header=TRUE)
 # circrnaIndex <- which(circRNA$circRNA_ID == circrna)
 # circexpr <- circRNA[circrnaIndex, 10:ncol(circRNA)]
 # colnames(circexpr) <- sapply(colnames(circexpr), function(x) strsplit(x, split="_", fixed=TRUE)[[1]][1])
@@ -26,14 +26,14 @@ circMatrix[is.na(circMatrix)] <- 0
 rownames(circMatrix) <- c(circRNA$circRNA_ID[usablecircs])
 
 # gene expression file
-genes <- read.table(file='../std/200904_allRNA_fromRNAseq_annot_hg38.tsv', header=TRUE)
+genes <- read.table(file='data/200904_allRNA_fromRNAseq_annot_hg38.tsv', header=TRUE)
 genesMatrix <- genes[,7:ncol(genes)]
 genesMatrix <- mapply(genesMatrix, FUN=as.integer)
 rownames(genesMatrix) <- genes[,6]
 colnames(genesMatrix) <- sapply(colnames(genesMatrix), function(x) strsplit(x, split="_", fixed=TRUE)[[1]][1])
 
 # miRNA expression file
-mirnaMatrix <- read.xlsx('../std2/final_all_samples_miRNA_seq.xlsx', sheet=1, rowNames=TRUE, colNames = TRUE)
+mirnaMatrix <- read.xlsx('data/final_all_samples_miRNA_seq.xlsx', sheet=1, rowNames=TRUE, colNames = TRUE)
 colnames(mirnaMatrix) <- sapply(colnames(mirnaMatrix), function(x) strsplit(x, split="_", fixed=TRUE)[[1]][1])
 
 # filter so that the rows/cols are the same
